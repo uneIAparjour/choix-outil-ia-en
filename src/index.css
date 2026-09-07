@@ -1,0 +1,175 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 186 100% 22%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 184 95% 58%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 274 87% 86%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Marianne', sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  /* Custom classes for our decision tree app */
+  .decision-brick {
+    @apply relative bg-white rounded-lg border border-[#E5E7EB] p-6 mb-4 shadow-sm transition-all duration-300 ease-in-out;
+  }
+
+  .decision-brick.active {
+    @apply border-l-4 border-l-primary;
+  }
+
+  .decision-brick.collapsed {
+    @apply bg-[#F9FAFB] cursor-pointer hover:bg-[#F1F5F9] hover:border-primary/30 transition-all;
+    max-height: 56px;
+    overflow: hidden;
+  }
+
+  .decision-brick.collapsed::after {
+    content: "Back to this step";
+    position: absolute;
+    right: 10px;
+    bottom: 4px;
+    font-size: 0.7rem;
+    color: rgb(0, 94, 110);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .decision-brick.collapsed:hover::after {
+    opacity: 1;
+  }
+
+  .decision-brick.success {
+    @apply bg-[#F0FDF4] border-[#4ADE80];
+  }
+
+  .choice-button {
+    @apply px-4 py-2 my-1 rounded-md transition-all duration-200 bg-[#F1F5F9] text-[#1A1F2C] hover:bg-[#005E6E] hover:text-white text-center;
+  }
+  
+  .confetti {
+    @apply absolute w-4 h-4 rounded-full animate-confetti;
+    background: linear-gradient(135deg, rgb(0, 94, 110), #1EAEDB, #F0FDF4);
+  }
+
+  .info-icon {
+    @apply text-[#005E6E] cursor-help transition-all duration-150 hover:text-[#005E6E]/80;
+  }
+
+  .tooltip {
+    @apply invisible absolute bg-[#1A1F2C] text-white text-xs py-2 px-3 rounded opacity-0 transition-opacity duration-200 z-50 max-w-xs;
+    width: 250px;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .tooltip-container {
+    @apply relative inline-block;
+  }
+
+  .tooltip-container:hover .tooltip {
+    @apply visible opacity-100;
+  }
+
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1A1F2C transparent transparent transparent;
+  }
+  
+  /* Mobile tooltip adjustments */
+  @media (max-width: 768px) {
+    .tooltip {
+      width: 200px;
+      bottom: auto;
+      top: -5px;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+    
+    .tooltip::after {
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-color: #1A1F2C transparent transparent transparent;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgb(0, 94, 110);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
